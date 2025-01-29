@@ -39,7 +39,7 @@ public class InfoElement : TitleElement
     ///     内容高度
     /// </summary>
     public static readonly DependencyProperty ContentHeightProperty = DependencyProperty.RegisterAttached(
-        "ContentHeight", typeof(double), typeof(InfoElement), new FrameworkPropertyMetadata(30.0, FrameworkPropertyMetadataOptions.Inherits));
+        "ContentHeight", typeof(double), typeof(InfoElement), new FrameworkPropertyMetadata(28.0, FrameworkPropertyMetadataOptions.Inherits));
 
     public static void SetContentHeight(DependencyObject element, double value) => element.SetValue(ContentHeightProperty, value);
 
@@ -49,7 +49,7 @@ public class InfoElement : TitleElement
     ///     最小内容高度
     /// </summary>
     public static readonly DependencyProperty MinContentHeightProperty = DependencyProperty.RegisterAttached(
-        "MinContentHeight", typeof(double), typeof(InfoElement), new PropertyMetadata(30.0));
+        "MinContentHeight", typeof(double), typeof(InfoElement), new PropertyMetadata(28.0));
 
     public static void SetMinContentHeight(DependencyObject element, double value)
         => element.SetValue(MinContentHeightProperty, value);
@@ -89,4 +89,11 @@ public class InfoElement : TitleElement
 
     public static bool GetShowClearButton(DependencyObject element)
         => (bool) element.GetValue(ShowClearButtonProperty);
+
+    public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.RegisterAttached(
+        "IsReadOnly", typeof(bool), typeof(InfoElement), new PropertyMetadata(ValueBoxes.FalseBox));
+
+    public static void SetIsReadOnly(DependencyObject element, bool value) => element.SetValue(IsReadOnlyProperty, ValueBoxes.BooleanBox(value));
+
+    public static bool GetIsReadOnly(DependencyObject element) => (bool) element.GetValue(IsReadOnlyProperty);
 }
