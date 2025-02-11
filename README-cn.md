@@ -1,3 +1,6 @@
+## 找工作
+由于个人原因，预计于年后离职，大家如果在上海，且有 python、wpf 空缺的岗位，可联系我，我的邮箱：836904362@qq.com。
+
 ## 友情链接
 
 [SimpleFactoryGenerator](https://github.com/DingpingZhang/SimpleFactoryGenerator) - A simple factory source generator that enables the pattern to not violate the open-close principle.
@@ -25,7 +28,7 @@
         <img alt="myget-version" src="https://img.shields.io/myget/handycontrol/v/handycontrol?color=orange&label=myget"></img>
     </a>
     <a href="https://github.com/HandyOrg/HandyControl/actions?query=workflow%3Abuild">
-        <img alt="Github-build-status" src="https://github.com/HandyOrg/HandyControl/workflows/build/badge.svg"></img>
+        <img alt="Github-build-status" src="https://github.com/HandyOrg/HandyControl/actions/workflows/build.yml/badge.svg"></img>
     </a>
     <a href="https://www.nuget.org/packages/HandyControl">
         <img alt="Nuget" src="https://img.shields.io/nuget/dt/handycontrol"></img>
@@ -92,6 +95,11 @@ HandyControl 项目已加入 [dotNET China](https://gitee.com/dotnetchina)  组�
 <a href="https://github.com/imba-tjd" target="_blank"><img style="border-radius:50%!important" width="64px" alt="imba-tjd" src="https://avatars.githubusercontent.com/u/24759802?s=64&v=4"></a>
 <a href="https://github.com/jhm-ciberman" target="_blank"><img style="border-radius:50%!important" width="64px" alt="jhm-ciberman" src="https://avatars.githubusercontent.com/u/7988351?s=64&v=4"></a>
 <a href="https://github.com/musashi-miyamoto" target="_blank"><img style="border-radius:50%!important" width="64px" alt="musashi-miyamoto" src="https://avatars.githubusercontent.com/u/44890163?s=64&v=4"></a>
+<a href="https://github.com/kingsznhone" target="_blank"><img style="border-radius:50%!important" width="64px" alt="kingsznhone" src="https://avatars.githubusercontent.com/u/35349300?s=64&v=4"></a>
+<a href="https://github.com/asine" target="_blank"><img style="border-radius:50%!important" width="64px" alt="asine" src="https://avatars.githubusercontent.com/u/3248918?s=64&v=4"></a>
+<a href="https://github.com/zsh2401" target="_blank"><img style="border-radius:50%!important" width="64px" alt="zsh2401" src="https://avatars.githubusercontent.com/u/16505828?s=64&v=4"></a>
+<a href="https://github.com/fpprojecta" target="_blank"><img style="border-radius:50%!important" width="64px" alt="fpprojecta" src="https://avatars.githubusercontent.com/u/145004301?s=64&v=4"></a>
+<a href="https://github.com/keytrap-x86" target="_blank"><img style="border-radius:50%!important" width="64px" alt="keytrap-x86" src="https://avatars.githubusercontent.com/u/17864005?s=64&v=4"></a>
 
 ## 赞助者
 

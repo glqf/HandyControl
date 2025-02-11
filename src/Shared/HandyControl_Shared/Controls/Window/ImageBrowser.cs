@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,6 +44,7 @@ public class ImageBrowser : Window
 
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
         WindowStyle = WindowStyle.None;
+        Topmost = true;
         AllowsTransparency = true;
     }
 
@@ -107,6 +109,12 @@ public class ImageBrowser : Window
         {
             _imageViewer.MouseLeftButtonDown += ImageViewer_MouseLeftButtonDown;
         }
+    }
+
+    protected override void OnClosing(CancelEventArgs e)
+    {
+        _imageViewer?.Dispose();
+        base.OnClosing(e);
     }
 
     private void ButtonClose_OnClick(object sender, RoutedEventArgs e) => Close();
