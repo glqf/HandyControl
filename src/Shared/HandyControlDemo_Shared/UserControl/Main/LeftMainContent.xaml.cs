@@ -10,7 +10,6 @@ using HandyControl.Tools;
 using HandyControlDemo.Data;
 using HandyControlDemo.ViewModel;
 
-
 namespace HandyControlDemo.UserControl;
 
 /// <summary>
@@ -81,7 +80,7 @@ public partial class LeftMainContent
                     item.IsVisible = true;
                     item.QueriesText = _searchKey;
                 }
-                else if (item.TargetCtlName.Replace("DemoCtl", "").ToLower().Contains(key))
+                else if (item.TargetCtlName.Replace("Demo", "").ToLower().Contains(key))
                 {
                     item.IsVisible = true;
                     item.QueriesText = _searchKey;

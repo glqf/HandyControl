@@ -20,7 +20,7 @@ namespace HandyControl.Controls;
 [TemplatePart(Name = ElementTextBox, Type = typeof(WatermarkTextBox))]
 [TemplatePart(Name = ElementButton, Type = typeof(Button))]
 [TemplatePart(Name = ElementPopup, Type = typeof(Popup))]
-public class TimePicker : Control, IDataInput
+public class TimePicker : Control
 {
     #region Constants
 
@@ -204,6 +204,11 @@ public class TimePicker : Control, IDataInput
     private static object CoerceSelectedTime(DependencyObject d, object value)
     {
         var dp = (TimePicker) d;
+        if (dp.Clock is null)
+        {
+            return (DateTime?) value;
+        }
+
         dp.Clock.SelectedTime = (DateTime?) value;
         return dp.Clock.SelectedTime;
     }
@@ -259,44 +264,6 @@ public class TimePicker : Control, IDataInput
     }
 
     #endregion Text
-
-    public Func<string, OperationResult<bool>> VerifyFunc { get; set; }
-
-    public static readonly DependencyProperty IsErrorProperty = DependencyProperty.Register(
-        nameof(IsError), typeof(bool), typeof(TimePicker), new PropertyMetadata(ValueBoxes.FalseBox));
-
-    public bool IsError
-    {
-        get => (bool) GetValue(IsErrorProperty);
-        set => SetValue(IsErrorProperty, ValueBoxes.BooleanBox(value));
-    }
-
-    public static readonly DependencyProperty ErrorStrProperty = DependencyProperty.Register(
-        nameof(ErrorStr), typeof(string), typeof(TimePicker), new PropertyMetadata(default(string)));
-
-    public string ErrorStr
-    {
-        get => (string) GetValue(ErrorStrProperty);
-        set => SetValue(ErrorStrProperty, value);
-    }
-
-    public static readonly DependencyProperty TextTypeProperty = DependencyProperty.Register(
-        nameof(TextType), typeof(TextType), typeof(TimePicker), new PropertyMetadata(default(TextType)));
-
-    public TextType TextType
-    {
-        get => (TextType) GetValue(TextTypeProperty);
-        set => SetValue(TextTypeProperty, value);
-    }
-
-    public static readonly DependencyProperty ShowClearButtonProperty = DependencyProperty.Register(
-        nameof(ShowClearButton), typeof(bool), typeof(TimePicker), new PropertyMetadata(ValueBoxes.FalseBox));
-
-    public bool ShowClearButton
-    {
-        get => (bool) GetValue(ShowClearButtonProperty);
-        set => SetValue(ShowClearButtonProperty, ValueBoxes.BooleanBox(value));
-    }
 
     public static readonly DependencyProperty SelectionBrushProperty =
         TextBoxBase.SelectionBrushProperty.AddOwner(typeof(TimePicker));
@@ -371,52 +338,6 @@ public class TimePicker : Control, IDataInput
 
     #region Public Methods
 
-    public virtual bool VerifyData()
-    {
-        OperationResult<bool> result;
-
-        if (VerifyFunc != null)
-        {
-            result = VerifyFunc.Invoke(Text);
-        }
-        else
-        {
-            if (!string.IsNullOrEmpty(Text))
-            {
-                result = OperationResult.Success();
-            }
-            else if (InfoElement.GetNecessary(this))
-            {
-                result = OperationResult.Failed(Properties.Langs.Lang.IsNecessary);
-            }
-            else
-            {
-                result = OperationResult.Success();
-            }
-        }
-
-        var isError = !result.Data;
-        if (isError)
-        {
-            SetCurrentValue(IsErrorProperty, ValueBoxes.TrueBox);
-            SetCurrentValue(ErrorStrProperty, result.Message);
-        }
-        else
-        {
-            isError = Validation.GetHasError(this);
-            if (isError)
-            {
-                SetCurrentValue(ErrorStrProperty, Validation.GetErrors(this)[0].ErrorContent?.ToString());
-            }
-            else
-            {
-                SetCurrentValue(IsErrorProperty, ValueBoxes.FalseBox);
-                SetCurrentValue(ErrorStrProperty, default(string));
-            }
-        }
-        return !isError;
-    }
-
     public override void OnApplyTemplate()
     {
         if (DesignerProperties.GetIsInDesignMode(this)) return;
@@ -461,11 +382,6 @@ public class TimePicker : Control, IDataInput
 
         if (_textBox != null)
         {
-            if (selectedTime == null)
-            {
-                _textBox.Text = DateTime.Now.ToString(TimeFormat);
-            }
-
             _textBox.SetBinding(SelectionBrushProperty, new Binding(SelectionBrushProperty.Name) { Source = this });
 #if !(NET40 || NET45 || NET451 || NET452 || NET46 || NET461 || NET462 || NET47 || NET471 || NET472)
             _textBox.SetBinding(SelectionTextBrushProperty, new Binding(SelectionTextBrushProperty.Name) { Source = this });
@@ -565,7 +481,6 @@ public class TimePicker : Control, IDataInput
     private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
         SetValueNoCallback(TextProperty, _textBox.Text);
-        VerifyData();
     }
 
     private bool ProcessTimePickerKey(KeyEventArgs e)

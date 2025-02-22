@@ -82,6 +82,10 @@ public class NumericUpDown : Control
         {
             SetCurrentValue(ValueProperty, value);
         }
+        else
+        {
+            SetText(true);
+        }
     }
 
     private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -102,10 +106,12 @@ public class NumericUpDown : Control
         if (e.Key == Key.Up)
         {
             Value += Increment;
+            SetText(true);
         }
         else if (e.Key == Key.Down)
         {
             Value -= Increment;
+            SetText(true);
         }
     }
 
@@ -116,6 +122,7 @@ public class NumericUpDown : Control
         if (_textBox.IsFocused && !IsReadOnly)
         {
             Value += e.Delta > 0 ? Increment : -Increment;
+            SetText(true);
             e.Handled = true;
         }
     }
@@ -164,9 +171,9 @@ public class NumericUpDown : Control
         });
     }
 
-    private void SetText()
+    private void SetText(bool force = false)
     {
-        if (_textBox != null)
+        if (_textBox != null && (!_textBox.IsFocused || force))
         {
             _textBox.Text = CurrentText;
             _textBox.Select(_textBox.Text.Length, 0);
